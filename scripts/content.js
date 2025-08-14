@@ -28,7 +28,7 @@ if (window.codeGrabProLoaded) {
       '.codehilite code',
       '.highlight-source code'
     ],
-    minLength: 50,         // Increased from 10
+    minLength: 10,         // Minimum characters required for detection
     maxBlocks: 50,         // Reduced from 100
     excludeSelectors: [
       'nav',
@@ -104,6 +104,33 @@ if (window.codeGrabProLoaded) {
     ]
   };
 
+  // Common language aliases used in class names
+  const LANGUAGE_ALIASES = {
+    js: 'javascript',
+    javascript: 'javascript',
+    ts: 'typescript',
+    typescript: 'typescript',
+    py: 'python',
+    python: 'python',
+    rb: 'ruby',
+    ruby: 'ruby',
+    sh: 'bash',
+    bash: 'bash',
+    shell: 'bash',
+    html: 'html',
+    css: 'css',
+    php: 'php',
+    c: 'c',
+    'c++': 'cpp',
+    cpp: 'cpp',
+    csharp: 'csharp',
+    'c#': 'csharp',
+    java: 'java',
+    sql: 'sql',
+    json: 'json',
+    xml: 'xml'
+  };
+
   // File extension mapping
   const EXTENSIONS = {
     javascript: 'js',
@@ -115,6 +142,9 @@ if (window.codeGrabProLoaded) {
     php: 'php',
     cpp: 'cpp',
     c: 'c',
+    csharp: 'cs',
+    bash: 'sh',
+    ruby: 'rb',
     sql: 'sql',
     json: 'json',
     xml: 'xml',
@@ -274,28 +304,18 @@ if (window.codeGrabProLoaded) {
 
   // Detect programming language with better accuracy
   function detectLanguage(element, codeText) {
-    // Check class names for language hints
-    const classStr = element.className.toLowerCase();
-    
-    // Direct class name matches
-    for (const lang of Object.keys(LANGUAGE_PATTERNS)) {
-      if (classStr.includes(`language-${lang}`) || 
-          classStr.includes(`lang-${lang}`) ||
-          classStr.includes(`highlight-${lang}`) ||
-          classStr === lang) {
-        return lang;
-      }
+    // Attempt to detect language from class names
+    const directClass = getLanguageFromClass(element.className.toLowerCase());
+    if (directClass) {
+      return directClass;
     }
 
-    // Check parent element classes
+    // Check a few ancestor elements for language hints
     let parent = element.parentElement;
     for (let i = 0; i < 3 && parent && parent.tagName !== 'BODY'; i++) {
-      const parentClass = parent.className.toLowerCase();
-      for (const lang of Object.keys(LANGUAGE_PATTERNS)) {
-        if (parentClass.includes(`language-${lang}`) || 
-            parentClass.includes(`lang-${lang}`)) {
-          return lang;
-        }
+      const fromParent = getLanguageFromClass(parent.className.toLowerCase());
+      if (fromParent) {
+        return fromParent;
       }
       parent = parent.parentElement;
     }
@@ -320,6 +340,20 @@ if (window.codeGrabProLoaded) {
     }
 
     return bestLang;
+  }
+
+  function getLanguageFromClass(classStr) {
+    for (const [alias, lang] of Object.entries(LANGUAGE_ALIASES)) {
+      if (
+        classStr.includes(`language-${alias}`) ||
+        classStr.includes(`lang-${alias}`) ||
+        classStr.includes(`highlight-${alias}`) ||
+        classStr.split(/\s+/).includes(alias)
+      ) {
+        return lang;
+      }
+    }
+    return null;
   }
 
   // Get context information for the code block
