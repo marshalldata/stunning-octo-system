@@ -1,23 +1,29 @@
+
+
+
+
+
 system/
-├── manifest.json                 # ✅ V3 manifest
-├── icons/                       # İkon klasörü (manuel eklemeniz gerek)
-│   ├── icon16.png              # 16x16 piksel ikon  
-│   ├── icon48.png              # 48x48 piksel ikon
-│   └── icon128.png             # 128x128 piksel ikon
-├── scripts/                    # Ana JavaScript dosyaları
-│   ├── background.js           # ✅ Service worker
-│   ├── content.js              # ✅ Kod tespit scripti
-│   ├── utils.js                # ✅ Yardımcı fonksiyonlar
-│   └── worker.js               # ✅ Web Worker
-├── popup/                      # Popup arayüzü
-│   ├── popup.html              # ✅ Modern popup
-│   ├── popup.js                # ✅ Popup mantığı
-│   └── popup.css               # ✅ Responsive stiller
-├── options/                    # Ayarlar sayfası
-│   ├── settings.html           # ✅ Kapsamlı ayarlar
-│   ├── settings.js             # ✅ Ayar mantığı
-│   └── settings.css            # ✅ Ayar stilleri
-└── lib/                        # Kütüphaneler
-    ├── highlight.min.js        # ✅ Syntax highlighting
-    └── jszip.min.js           # ✅ ZIP export
+├── manifest.json                
+├── icons/                      
+│   ├── icon16.png                
+│   ├── icon48.png              
+│   └── icon128.png             
+├── scripts/                    
+│   ├── background.js           
+│   ├── content.js              
+│   ├── utils.js               
+│   └── worker.js               
+├── popup/                     
+│   ├── popup.html             
+│   ├── popup.js                
+│   └── popup.css               
+├── options/                    
+│   ├── settings.html         
+│   ├── settings.js            
+│   └── settings.css            
+└── lib/                        
+    ├── highlight.min.js       
+    └── jszip.min.js           
+
 
