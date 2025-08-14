@@ -633,16 +633,22 @@ class CodeGrabPopup {
   getMimeType(language) {
     const mimeTypes = {
       javascript: 'text/javascript',
+      typescript: 'application/typescript',
       python: 'text/x-python',
       java: 'text/x-java',
       css: 'text/css',
       html: 'text/html',
       php: 'application/x-httpd-php',
+      cpp: 'text/x-c++src',
+      c: 'text/x-c',
+      csharp: 'text/x-csharp',
+      bash: 'application/x-sh',
+      ruby: 'text/x-ruby',
       sql: 'text/x-sql',
       json: 'application/json',
       xml: 'application/xml'
     };
-    
+
     return mimeTypes[language] || 'text/plain';
   }
 
